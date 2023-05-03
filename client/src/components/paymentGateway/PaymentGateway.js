@@ -6,13 +6,14 @@ import { connect } from "react-redux";
 const PaymentGateway = ({
   openPG,
   amnt,
+  wg,
   requestPaymentGateway,
   handleClose,
 }) => {
   const [paymentLink, setPaymentLink] = useState("");
 
   if (!paymentLink && openPG) {
-    requestPaymentGateway(amnt).then((res) => {
+    requestPaymentGateway({ amnt, wg }).then((res) => {
       setPaymentLink(res?.data?.payment_url);
       window.location.href = res?.data?.payment_url;
     });

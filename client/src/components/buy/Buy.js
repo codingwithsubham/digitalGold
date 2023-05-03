@@ -74,7 +74,7 @@ const Buy = ({ getLatestReport, handleBuyClose }) => {
         </form>
       </div>
       {openPG && (
-        <PaymentGateway openPG={openPG} amnt={price} handleClose={handleClose} />
+        <PaymentGateway openPG={openPG} amnt={price} wg={val} handleClose={handleClose} />
       )}
     </Fragment>
   );
