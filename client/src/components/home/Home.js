@@ -3,16 +3,24 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
 import { getLatestReport } from "../../actions/goldApi";
+import { getVault } from "../../actions/vault";
 import { openSidebar } from "../../actions/layout";
 import Buy from "../buy/Buy";
 
-const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
+const Home = ({
+  auth: { user },
+  loadUser,
+  getLatestReport,
+  getVault,
+  vault: { myVault, loading },
+}) => {
   useEffect(() => {
     loadUser();
+    getVault();
     getLatestReport().then((d) => {
       setData(d);
     });
-  }, [loadUser, getLatestReport]);
+  }, [loadUser, getLatestReport, getVault]);
   const [data, setData] = useState(null);
 
   const refreshRate = () => {
@@ -26,7 +34,7 @@ const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
 
   const handleBuyClose = () => {
     setOpenBuy(false);
-  }
+  };
 
   return (
     <Fragment>
@@ -62,12 +70,12 @@ const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
           <div className="card">
             <i className="fa fa-chevron-right"></i>
             <h4>Here is your Digital Gold Vault</h4>
-            <h1>0.01g</h1>
+            <h1>{loading ? "Fetching..." : `${myVault? myVault.vaultBalance : 0}g`}</h1>
             <h3>Vault is secure than You Think !!</h3>
           </div>
         </div>
       </div>
-      {openBuy && <Buy  handleBuyClose={handleBuyClose} />}
+      {openBuy && <Buy handleBuyClose={handleBuyClose} />}
     </Fragment>
   );
 };
@@ -77,13 +85,16 @@ Home.propTypes = {
   loadUser: PropTypes.func.isRequired,
   openSidebar: PropTypes.func.isRequired,
   getLatestReport: PropTypes.func.isRequired,
+  getVault: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  vault: state.vault,
 });
 
 export default connect(mapStateToProps, {
   openSidebar,
   loadUser,
   getLatestReport,
+  getVault,
 })(Home);

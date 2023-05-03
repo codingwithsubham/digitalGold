@@ -42,3 +42,4 @@ export const GET_FEED = "GET_FEED";
 export const GET_FEEDS = "GET_FEEDS";
 export const CREATE_ADS = "CREATE_ADS";
 export const GET_ADS = "GET_ADS";
+export const VAULT_LOADED = "VAULT_LOADED";

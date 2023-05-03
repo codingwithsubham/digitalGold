@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Vault = require("../../models/vault");
 const auth = require("../../middleware/auth");
-const { addBalance } = require("../../func/vault");
+const { addBalance, debitBalance } = require("../../func/vault");
 
 // @route GET api/vault
 // @desc POST Task
@@ -37,15 +37,7 @@ router.post("/debit", auth, async (req, res) => {
   const date = new Date();
   try {
     const { val, remarks } = req.body;
-    let vault = await Vault.findOne({ user: req.user.id });
-    vault.vaultBalance = parseFloat(vault.vaultBalance) - parseFloat(val);
-    vault.passbook.push({
-      value: parseFloat(val),
-      type: "DEBIT",
-      date: date.toLocaleString("en-US", { timeZone: "Asia/Kolkata" }),
-      remarks: remarks,
-    });
-    await vault.save();
+    const vault = await debitBalance(req.user.id, val, remarks)
     return res.json(vault);
   } catch (err) {
     res.status(STATUS_CODE_500).send(SERVER_ERROR);
