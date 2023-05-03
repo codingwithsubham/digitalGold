@@ -36,6 +36,7 @@ router.post("/create-order", auth, async (req, res) => {
       customer_email: `${user.name.split(" ")[0]}@digitalgold.com`,
       customer_mobile: user.mobile,
       redirect_url: "https://digitalgold.onrender.com/vault",
+      udf1: "GOLD_WALLET"
 
     };
     const response = await axios.post(
