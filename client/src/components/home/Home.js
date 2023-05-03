@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { loadUser } from "../../actions/auth";
 import { getLatestReport } from "../../actions/goldApi";
 import { openSidebar } from "../../actions/layout";
+import Buy from "../buy/Buy";
 
 const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
   useEffect(() => {
@@ -15,23 +16,28 @@ const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
   const [data, setData] = useState(null);
 
   const refreshRate = () => {
-    setData(null)
+    setData(null);
     getLatestReport().then((d) => {
       setData(d);
     });
+  };
+
+  const [openBuy, setOpenBuy] = useState(false);
+
+  const handleBuyClose = () => {
+    setOpenBuy(false);
   }
 
   return (
     <Fragment>
-      <div className="hme">
+      <div className="hme insta-an">
         <div className="hro">
           <p>Live Digital GOLD as per MMTC PAMP.</p>
-          <h3>{data? `₹${data.price}` : "Loading..."}</h3>
-          <p>{data? `For ${data.wg} GOLD + 3% GST applicable` : ""}</p>
+          <h3>{data ? `₹${data.price}` : "Loading..."}</h3>
+          <p>{data ? `For ${data.wg} GOLD + 3% GST applicable` : ""}</p>
           <div className="sub-hro">
-            <h4>
-              <span className="dot blink">.</span>24K Live Rate Updated
-            </h4>
+            <i className="fa fa-dot-circle-o dot blink"></i>
+            <h4 className="blink">24K Live Rate Updated</h4>
           </div>
         </div>
         <div className="cta">
@@ -39,7 +45,7 @@ const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
             <i className="fa fa-paper-plane" />
             <p>Sell</p>
           </div>
-          <div className="itm">
+          <div className="itm" onClick={() => setOpenBuy(!openBuy)}>
             <i className="fa fa-download" />
             <p>Buy</p>
           </div>
@@ -54,15 +60,14 @@ const Home = ({ auth: { user }, loadUser, getLatestReport }) => {
         </div>
         <div className="lsts">
           <div className="card">
-          <i className="fa fa-chevron-right"></i>
-            <h4>
-              Here is your Digital Gold Vault
-            </h4>
+            <i className="fa fa-chevron-right"></i>
+            <h4>Here is your Digital Gold Vault</h4>
             <h1>0.01g</h1>
             <h3>Vault is secure than You Think !!</h3>
           </div>
         </div>
       </div>
+      {openBuy && <Buy  handleBuyClose={handleBuyClose} />}
     </Fragment>
   );
 };

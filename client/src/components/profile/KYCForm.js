@@ -37,7 +37,7 @@ const KYCForm = ({
 
   if(!user?.kyc) {
     return (
-      <div className="kyc-data">
+      <div className="kyc-data insta-an">
       <i className="fa fa-check success"></i>
         <p>Your Kyc is already Verified !!</p>
         <button className='btn' onClick={() => handleEditKyc()}>View Now</button>
@@ -46,7 +46,7 @@ const KYCForm = ({
   }
 
   return user && (
-    <div className="kyc-form">
+    <div className="kyc-form insta-an">
       <form onSubmit={(e) => handleSubmit(e)} className="login-form">
         {user?.kyc?.client_id && user?.kyc?.status === "pending" ? (
           <Fragment>

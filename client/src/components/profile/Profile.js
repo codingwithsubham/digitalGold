@@ -26,7 +26,7 @@ const Profile = ({ auth: { user } }) => {
   }
 
   return (
-    <div className="profile">
+    <div className="profile insta-an">
       <div className="prfile-hdr">
         <div className="avatar">
           {user?.kycData?.profile_image ? (

@@ -13,6 +13,8 @@ app.use(express.static("uploads"));
 // Define Routes
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/report", require("./routes/api/report"));
+app.use("/api/pg", require("./routes/api/pg"));
+app.use("/api/vault", require("./routes/api/vault"));
 
 //Set static folder
 app.use(express.static("client/build"));

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const PersonalData = ({ auth: { user }, handleEditKyc }) => {
   return user && user.kyc ? (
-    <div className="kyc-data">
+    <div className="kyc-data insta-an">
       <div className="prsnl-details">
         <h1>Personal Details: </h1>
       <p>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 const KYCData = ({ auth: { user }, handleEditKyc }) => {
   return user && user.kyc ? (
-    <div className="kyc-data">
+    <div className="kyc-data insta-an">
       <i className="fa fa-check success"></i>
       <p>Profile Verified</p>
       <div className="details">
