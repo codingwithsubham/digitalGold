@@ -12,14 +12,13 @@ const {
   JWT_SECRET,
   EXPIRES_IN,
   STATUS_CODE_500,
-  EMAIL_REQUIRED_INVALID,
-  EMAIL,
   PASSWORD,
   PASSWORD_INVALID,
   INVALID_CREDENTIALS,
   STATUS_CODE_400,
   MOBILE,
   MOBILE_REQUIRED,
+  STATUS_CODE_200,
 } = require("../../common/constant/constants");
 const { HEADER } = require("../../common/constant/api-constants");
 
