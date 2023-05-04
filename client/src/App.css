@@ -1141,4 +1141,28 @@ input[type="text"][disabled] {
     background-position: center;
     background-size: 170%;
   }
+  .close {
+    cursor: none;
+  }
+  .dropdown-content {
+    cursor: none;
+  }
+  .btm-bar-wrap a{
+    cursor: none;
+  }
+  .sidebar .closebtn {
+    cursor: none;
+  }
+  button.closebtn {
+    cursor: none;
+  }
+  .bdy-itm {
+    cursor: none;
+  }
+  .itm {
+    cursor: none;
+  }
+  .sidebar-links a {
+    cursor: none;
+  }
 }

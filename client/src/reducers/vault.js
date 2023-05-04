@@ -13,7 +13,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: false,
-        vault: payload,
+        myVault: payload,
       };
 
     default:

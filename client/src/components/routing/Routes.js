@@ -12,6 +12,7 @@ import ResetPassword from "../auth/ResetPassword";
 import PrivacyPolicy from "../pages/PrivacyPolicy";
 import TermsConditions from "../pages/TermsConditions";
 import AboutUs from "../pages/AboutUs";
+import Vault from "../vault/Vault";
 
 const Routes = ({ layout: { isSidebarOpen } }) => {
   return (
@@ -25,6 +26,7 @@ const Routes = ({ layout: { isSidebarOpen } }) => {
         <PrivateRoute exact path="/home" component={Home} />
         <PrivateRoute exact path="/reset-password" component={ResetPassword} />
         <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/vault" component={Vault} />
         <Route exact path="/privacy-policy" component={PrivacyPolicy} />
         <Route exact path="/terms-conditions" component={TermsConditions} />
         <Route exact path="/about-us" component={AboutUs} />
