@@ -8,10 +8,24 @@ export const getVault = () => async (dispatch) => {
   try {
     const res = await axios.get("/api/vault", API_CONFIG);
     dispatch({
-        type: VAULT_LOADED,
-        payload: res.data,
-      });
+      type: VAULT_LOADED,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch(setAlert("Couldn't Fetch Vault at This Moment", "danger"));
+  }
+};
+
+// get transfer
+export const transfer = (body) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/vault/transfer", body, API_CONFIG);
+    dispatch({
+      type: VAULT_LOADED,
+      payload: res.data,
+    });
+    dispatch(setAlert(`Successfully Transfered to ${body?.to}`, "success"));
+  } catch (err) {
+    dispatch(setAlert("Couldn't Transfer at This Moment", "danger"));
   }
 };

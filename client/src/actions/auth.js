@@ -81,7 +81,11 @@ export const logout = () => async (dispatch) => {
 // update Bank
 export const updateUserBank = (body) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/auth/update-user/bank", body, API_CONFIG);
+    const res = await axios.post(
+      "/api/auth/update-user/bank",
+      body,
+      API_CONFIG
+    );
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -131,7 +135,11 @@ export const finishKycVerification = (body) => async (dispatch) => {
 // get user team
 export const forgotPassword = (mobile) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/auth/forgot-password",{mobile}, API_CONFIG);
+    const res = await axios.post(
+      "/api/auth/forgot-password",
+      { mobile },
+      API_CONFIG
+    );
     dispatch(setAlert(res.data, "success"));
   } catch (err) {
     dispatch(setAlert("Server Error", "success"));
@@ -141,8 +149,22 @@ export const forgotPassword = (mobile) => async (dispatch) => {
 // get user team
 export const resetPassword = (password) => async (dispatch) => {
   try {
-    const res = await axios.post("/api/auth/reset-password",{password}, API_CONFIG);
+    const res = await axios.post(
+      "/api/auth/reset-password",
+      { password },
+      API_CONFIG
+    );
     dispatch(setAlert(res.data, "success"));
+  } catch (err) {
+    dispatch(setAlert("Server Error", "success"));
+  }
+};
+
+// validate user
+export const validateUser = (mob) => async (dispatch) => {
+  try {
+    const res = await axios.post("/api/auth/validate", { mob }, API_CONFIG);
+    return res.data;
   } catch (err) {
     dispatch(setAlert("Server Error", "success"));
   }

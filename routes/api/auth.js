@@ -141,6 +141,32 @@ router.get("/load-user", auth, async (req, res) => {
   }
 });
 
+// @route GET api/auth
+// @desc validate User By mob
+// @access Private
+router.post("/validate", auth, async (req, res) => {
+  try {
+    const { mob } = req.body;
+    let user = await User.findOne({
+      $or: [
+        {
+          mobile: { $regex: new RegExp("^" + mob.toLowerCase(), "i") },
+        },
+      ],
+    });
+    if (user) {
+      return res.json(user);
+    } else {
+      return res
+        .status(STATUS_CODE_400)
+        .json({ errors: [{ msg: "User Not Exists" }] });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(STATUS_CODE_500).send(SERVER_ERROR);
+  }
+});
+
 // @route PUT api/auth
 // @desc Update User
 // @access Private
@@ -169,7 +195,6 @@ router.post("/update-user/:type", auth, async (req, res) => {
   }
 });
 
-
 // @route POST api/auth/kyc/init
 // @desc init Kyc Verification
 // @access Private
@@ -178,27 +203,29 @@ router.post("/kyc/init", auth, async (req, res) => {
     const { aadhaar, pan } = req.body;
     let user = await User.findById(req.user.id).select("-password");
     const postData = {
-      aadhaarNumber: aadhaar
+      aadhaarNumber: aadhaar,
     };
     const response = await axios.post(
       "https://api.emptra.com/aadhaarVerification/requestOtp",
       postData,
       {
-        headers: HEADER
+        headers: HEADER,
       }
     );
-    if(response?.data?.result?.success){
+    if (response?.data?.result?.success) {
       user.kyc = {
         aadhaar,
         pan,
         status: "pending",
-        client_id: response?.data?.result?.data?.client_id
-      }
+        client_id: response?.data?.result?.data?.client_id,
+      };
       await user.save();
       return res.json(user);
     } else {
       console.log(response.data);
-      res.status(STATUS_CODE_400).send("Something went wrong at Aadhar Server !!");
+      res
+        .status(STATUS_CODE_400)
+        .send("Something went wrong at Aadhar Server !!");
     }
   } catch (err) {
     console.log(err);
@@ -218,21 +245,23 @@ router.post("/kyc/verify", auth, async (req, res) => {
       "https://api.emptra.com/aadhaarVerification/submitOtp",
       postData,
       {
-        headers: HEADER
+        headers: HEADER,
       }
     );
-    if(response?.data?.result?.success){
-      user.kyc ={
+    if (response?.data?.result?.success) {
+      user.kyc = {
         ...user.kyc,
         status: "verified",
-        client_id: ""
-      }
+        client_id: "",
+      };
       user.kycData = response?.data?.result?.data;
       await user.save();
       return res.json(user);
     } else {
       console.log(response.data);
-      res.status(STATUS_CODE_400).send("Something went wrong at Aadhar Server !!");
+      res
+        .status(STATUS_CODE_400)
+        .send("Something went wrong at Aadhar Server !!");
     }
   } catch (err) {
     console.log(err);
@@ -247,17 +276,23 @@ router.post("/forgot-password", async (req, res) => {
   try {
     const { mobile } = req.body;
     //finding User
-    let user = await User.findOne({mobile});
+    let user = await User.findOne({ mobile });
 
-    if(!user){
-      return res.status(STATUS_CODE_400).json({ errors: [{ msg: "User Not Exists!! Plz Register !!" }] });
+    if (!user) {
+      return res
+        .status(STATUS_CODE_400)
+        .json({ errors: [{ msg: "User Not Exists!! Plz Register !!" }] });
     }
     const password = "123456";
     //changing password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
-    return res.status(STATUS_CODE_200).send("Password Set To Default!! Please login and Change The Password !!");
+    return res
+      .status(STATUS_CODE_200)
+      .send(
+        "Password Set To Default!! Please login and Change The Password !!"
+      );
   } catch (error) {
     console.log(error);
     return res.status(STATUS_CODE_500).send(SERVER_ERROR);
@@ -271,10 +306,12 @@ router.post("/reset-password", auth, async (req, res) => {
   try {
     const { password } = req.body;
     //finding User
-    let user = await User.findOne({_id: req.user.id});
+    let user = await User.findOne({ _id: req.user.id });
 
-    if(!user){
-      return res.status(STATUS_CODE_400).json({ errors: [{ msg: "User Not Exists!! Plz Register !!" }] });
+    if (!user) {
+      return res
+        .status(STATUS_CODE_400)
+        .json({ errors: [{ msg: "User Not Exists!! Plz Register !!" }] });
     }
     //changing password
     const salt = await bcrypt.genSalt(10);

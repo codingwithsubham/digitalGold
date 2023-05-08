@@ -14,7 +14,7 @@ const Footer = ({ auth: { isAuthenticated, user }, loadUser, layout: { isSidebar
         Created with <i className="fa fa-heart"></i> by Infomatric.
       </div>
       <div className="ftr-cpyryt">
-        Copyright© {dt.getFullYear()} Fastdial Credit
+        Copyright© {dt.getFullYear()} Digital Gold
       </div>
     </div>
   );

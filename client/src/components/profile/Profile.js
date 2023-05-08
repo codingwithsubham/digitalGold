@@ -5,16 +5,18 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { b64toBlob } from "../../actions/common";
 import PersonalData from "./PersonalData";
+import BankDetails from "./BankDetails";
 
 const Profile = ({ auth: { user } }) => {
   const [openKyc, setOpenKyc] = useState(false);
   const [openPersonal, setOpenPersonal] = useState(false);
   const [openKycEdit, setOpenKycEdit] = useState(false);
+  const [openBankDetails, setOpenBankDetails] = useState(false);
 
   const handleEditKyc = () => {
-    setOpenKycEdit(!openKycEdit);
-    setOpenKyc(!openKyc);
-    setOpenPersonal(!openPersonal);
+    setOpenKycEdit(true);
+    setOpenKyc(false);
+    setOpenPersonal(false);
   };
 
   let blobUrl = "";
@@ -50,11 +52,16 @@ const Profile = ({ auth: { user } }) => {
           <i className="fa fa-user"></i>
           <p>Personal Details</p>
         </div>
+        <div className="bdy-itm" onClick={() => setOpenBankDetails(!openBankDetails)}>
+          <i className="fa fa-bank"></i>
+          <p>Bank Details</p>
+        </div>
       </div>
       <div className="prfile-dtls">
         {openKycEdit && <KYCForm handleEditKyc={handleEditKyc} />}
         {openKyc && <KYCData handleEditKyc={handleEditKyc} />}
         {openPersonal && <PersonalData handleEditKyc={handleEditKyc} />}
+        {openBankDetails && <BankDetails />}
       </div>
     </div>
   );

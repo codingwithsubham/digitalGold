@@ -12,6 +12,7 @@ const {
 const { default: axios } = require("axios");
 const Vault = require("../../models/vault");
 const { addBalance } = require("../../func/vault");
+const { addSale } = require("../../func/sale");
 
 // @route POST api/pg/create-order`
 // @desc init payment gateway
@@ -65,6 +66,7 @@ router.post("/order-success", async (req, res) => {
       const pg = await PG.findById(client_txn_id);
       if (pg) {
         await addBalance(pg.user, pg.wg, "Self Purchased.");
+        await addSale(pg.user, pg.wg, pg.amnt);
         return res.status(STATUS_CODE_200).json({ success: true });
       } else {
         return res

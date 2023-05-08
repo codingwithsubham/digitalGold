@@ -1,11 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom"
 import { loadUser } from "../../actions/auth";
 import { getLatestReport } from "../../actions/goldApi";
 import { getVault } from "../../actions/vault";
 import { openSidebar } from "../../actions/layout";
 import Buy from "../buy/Buy";
+import Sell from "../sell/Sell";
+import Transfer from "../transfer/Transfer";
 
 const Home = ({
   auth: { user },
@@ -31,9 +34,19 @@ const Home = ({
   };
 
   const [openBuy, setOpenBuy] = useState(false);
+  const [openSell, setOpenSell] = useState(false);
+  const [openTrasfer, setOpenTrasfer] = useState(false);
 
   const handleBuyClose = () => {
     setOpenBuy(false);
+  };
+
+  const handleSellClose = () => {
+    setOpenSell(false);
+  };
+
+  const handleTransferClose = () => {
+    setOpenTrasfer(false);
   };
 
   return (
@@ -49,7 +62,7 @@ const Home = ({
           </div>
         </div>
         <div className="cta">
-          <div className="itm">
+          <div className="itm" onClick={() => setOpenSell(!openSell)}>
             <i className="fa fa-paper-plane" />
             <p>Sell</p>
           </div>
@@ -57,7 +70,7 @@ const Home = ({
             <i className="fa fa-download" />
             <p>Buy</p>
           </div>
-          <div className="itm">
+          <div className="itm" onClick={() => setOpenTrasfer(!openTrasfer)}>
             <i className="fa fa-exchange" />
             <p>Transfer</p>
           </div>
@@ -68,7 +81,7 @@ const Home = ({
         </div>
         <div className="lsts">
           <div className="card">
-            <i className="fa fa-chevron-right"></i>
+            <Link to="/vault"><i className="fa fa-chevron-right"></i></Link>
             <h4>Here is your Digital Gold Vault</h4>
             <h1>{loading ? "Fetching..." : `${myVault? myVault.vaultBalance : 0}g`}</h1>
             <h3>Vault is secure than You Think !!</h3>
@@ -76,6 +89,8 @@ const Home = ({
         </div>
       </div>
       {openBuy && <Buy handleBuyClose={handleBuyClose} />}
+      {openSell && <Sell handleSellClose={handleSellClose} />}
+      {openTrasfer && <Transfer handleTransferClose={handleTransferClose} />}
     </Fragment>
   );
 };

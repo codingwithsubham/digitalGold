@@ -633,6 +633,7 @@ p {
   border-radius: 6px;
   color: #e4ae04;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .prfile-bdy {
@@ -719,7 +720,7 @@ i.success {
 
 .prsnl-details p {
   font-size: 17px;
-  color: #282828;
+  color: #d1d1d1;
   text-align: left;
 }
 
@@ -906,7 +907,6 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 42%;
 }
 
 .dot {
@@ -1044,6 +1044,104 @@ input[type="text"][disabled] {
 
 *::placeholder {
   color: white;
+}
+
+.bnk-dtls form.login-form {
+  width: 90%;
+  background: #1f1f1f;
+  padding: 4%;
+  margin: 1%;
+  border-radius: 10px;
+}
+
+.bnk-dtls button.btn {
+  margin-top: 20px;
+}
+
+.prsnl-details.bnk-dtls i {
+  font-size: 21px;
+  position: relative;
+  float: right;
+  margin-right: 3%;
+}
+
+.kyc-form form.login-form {
+  margin: 2%;
+  padding: 2%;
+}
+
+.vault {
+  padding: 3%;
+  width: -webkit-fill-available;
+}
+
+.vault-hdr.blnc {
+  border-radius: 5px;
+  width: -webkit-fill-available;
+  height: 250px;
+  background: #FFC107;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #111;
+  font-size: 50px;
+  font-weight: 400;
+}
+
+#data {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#data td, #data th {
+  border: 1px solid #0f0f0f;
+  padding: 8px;
+}
+
+#data tr:nth-child(even){background-color: #1f1f1f;}
+
+#data tr:hover {background-color: #1e1e1e;}
+
+#data th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #FFC107;
+  color: #111;
+}
+
+p.avl-blnc {
+  background: red;
+  width: fit-content;
+  padding: 2px 10px;
+  border-radius: 5px;
+  position: absolute;
+  margin-top: -100px;
+}
+
+.toggle-bar {
+  display: flex;
+  width: -webkit-fill-available;
+  justify-content: space-evenly;
+  padding: 10px;
+  border-bottom: 2px solid #ffc107;
+  margin-bottom: 5%;
+}
+
+.toggle-bar h1 {
+  color: #646464;
+  transition: 1s;
+}
+
+.toggle-bar h1.toggle {
+  color: #ffc107;
+}
+
+p.success {
+  color: #4CAF50;
+  font-size: 17px;
+  margin-top: 10px;
 }
 
 @media only screen and (max-width: 600px) {

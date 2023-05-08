@@ -15,6 +15,7 @@ app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/report", require("./routes/api/report"));
 app.use("/api/pg", require("./routes/api/pg"));
 app.use("/api/vault", require("./routes/api/vault"));
+app.use("/api/sale", require("./routes/api/sale"));
 
 //Set static folder
 app.use(express.static("client/build"));

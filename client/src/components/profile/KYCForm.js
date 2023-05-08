@@ -35,7 +35,7 @@ const KYCForm = ({
     initKycVerification({ aadhaar: user?.kyc?.aadhaar, pan: user?.kyc?.pan });
   }
 
-  if(!user?.kyc) {
+  if(user?.kyc) {
     return (
       <div className="kyc-data insta-an">
       <i className="fa fa-check success"></i>
@@ -48,6 +48,7 @@ const KYCForm = ({
   return user && (
     <div className="kyc-form insta-an">
       <form onSubmit={(e) => handleSubmit(e)} className="login-form">
+        <h1>Goverment Verification</h1>
         {user?.kyc?.client_id && user?.kyc?.status === "pending" ? (
           <Fragment>
             <div className="inpt-group">
