@@ -30,7 +30,7 @@ const Sell = ({
 
   const handleChange = (e) => {
     if (e.target.name === "val") {
-      if (e.target.value > parseFloat(myVault?.vaultBalance)) {
+      if (e.target.value > parseFloat(myVault? myVault.vaultBalance : 0)) {
         setAlert("Can't sell more than you have !!");
       } else {
         setFormdata({

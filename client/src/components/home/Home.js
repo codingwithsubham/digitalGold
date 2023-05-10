@@ -83,7 +83,7 @@ const Home = ({
           <div className="card">
             <Link to="/vault"><i className="fa fa-chevron-right"></i></Link>
             <h4>Here is your Digital Gold Vault</h4>
-            <h1>{loading ? "Fetching..." : `${myVault? myVault.vaultBalance : 0}g`}</h1>
+            <h1>{loading ? "Fetching..." : `${myVault? (myVault.vaultBalance).toFixed(4) : 0}g`}</h1>
             <h3>Vault is secure than You Think !!</h3>
           </div>
         </div>
